@@ -1,0 +1,79 @@
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Environnements virtuels
+venv/
+env/
+.venv/
+
+# Cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Dépendances
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Tests
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Environnements de développement
+.idea/
+.vscode/
+*.iml
+
+# Fichiers d'environnement (sauf production)
+.env
+.env.local
+.env.development.local
+.env.test.local
+
+# Logs
+*.log
+logs/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Docker Compose
+docker-compose.override.yml
+
+# Fichiers temporaires
+*.swp
+*.swo
+*~

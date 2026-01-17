@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Connexion - Mini Site Étudiant</title>
+  </head>
+  <body>
+    <h2>Connexion</h2>
+
+    {% if message %}
+    <p style="color: red">{{ message }}</p>
+    {% endif %}
+
+    <form method="POST">
+      <div>
+        <label>Nom d'utilisateur:</label>
+        <input type="text" name="username" required />
+      </div>
+      <div>
+        <label>Mot de passe:</label>
+        <input type="password" name="password" required />
+      </div>
+      <button type="submit">Se connecter</button>
+    </form>
+
+    <p>Identifiants de démonstration: etudiant / motdepasse123</p>
+  </body>
+</html>
