@@ -1,0 +1,27 @@
+name: build and integrate image to DockerHub
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v3
+
+      - name: build docker image
+        run: |
+          docker build -t herilanja/my_python_web_app:latest .
+        
+      - name: login to dockerhub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: push docker image to dockerhub
+        run: |
+          docker push herilanja/my_python_web_app
+      
