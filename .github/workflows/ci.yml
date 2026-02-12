@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 jobs:
   docker:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, local, docker]
 
     steps:
       - name: checkout repository
@@ -24,4 +24,56 @@ jobs:
       - name: push docker image to dockerhub
         run: |
           docker push herilanja/my_python_web_app
-      
+      - name: Deploy locally on VM
+        run: |
+          echo "Début du déploiement local..."
+
+          DOCKERHUB_USERNAME="${{ secrets.DOCKERHUB_USERNAME }}"
+          IMAGE_NAME="mon-site-flask"
+          TAG="latest"
+          FULL_IMAGE="$DOCKERHUB_USERNAME/$IMAGE_NAME:$TAG"
+          CONTAINER_NAME="flask-app"
+          NETWORK_NAME="flask-network"
+
+          log_info() { echo "[INFO] $1"; }
+          log_error() { echo "[ERROR] $1"; }
+          log_success() { echo "[SUCCESS] $1"; }
+
+          mkdir -p /opt/flask-app
+
+          log_info "Pull de la dernière image..."
+          docker pull $FULL_IMAGE
+
+          log_info "Arrêt de l'ancien conteneur (si existant)..."
+          docker stop $CONTAINER_NAME 2>/dev/null || true
+          docker rm $CONTAINER_NAME 2>/dev/null || true
+
+          log_info "Création du réseau Docker (si nécessaire)..."
+          docker network create $NETWORK_NAME 2>/dev/null || true
+
+          log_info "Démarrage du nouveau conteneur..."
+          docker run -d \
+            --name $CONTAINER_NAME \
+            --restart unless-stopped \
+            --network $NETWORK_NAME \
+            -p 5000:5000 \
+            -e SECRET_KEY="${{ secrets.APP_SECRET_KEY }}" \
+            -e FLASK_ENV=production \
+            $FULL_IMAGE
+
+          sleep 5
+
+          if docker ps | grep -q $CONTAINER_NAME; then
+            log_success "Conteneur démarré avec succès"
+          else
+            log_error "Échec du démarrage du conteneur"
+            docker logs $CONTAINER_NAME
+            exit 1
+          fi
+
+          log_info "Nettoyage des images inutilisées..."
+          docker image prune -af --filter "until=24h"
+
+          echo "Déployé le $(date) - Commit: ${{ github.sha }}" >> /opt/flask-app/deployment.log
+
+          log_success "Déploiement terminé avec succès"
