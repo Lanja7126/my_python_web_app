@@ -24,6 +24,7 @@ jobs:
       - name: push docker image to dockerhub
         run: |
           docker push herilanja/my_python_web_app
+          
       - name: Deploy locally on VM
         run: |
           echo "Début du déploiement local..."
