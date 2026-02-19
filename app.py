@@ -13,8 +13,6 @@ UTILISATEUR_DEMO = {
     'password': 'edt2026'
 }
 
-
-@app.route('/')
 def login_requierd(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -22,6 +20,13 @@ def login_requierd(f):
             return redirect(url_for('login'))
         return f(*args, **kwargs)
     return decorated_function
+
+
+@app.route('/')
+def index():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    return redirect(url_for('home'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
