@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session
+from functools import wraps
 import os
 
 
@@ -14,12 +15,13 @@ UTILISATEUR_DEMO = {
 
 
 @app.route('/')
-def index():
-    # Redirige vers la page de connexion si non authentifié
-    if 'username' not in session:
-        return redirect(url_for('login'))
-    return redirect(url_for('home'))
-
+def login_requierd(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'username' not in session:
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -37,10 +39,14 @@ def login():
 
 
 @app.route('/home')
+@login_requierd
 def home():
-    if 'username' not in session:
-        return redirect(url_for('login'))
     return render_template('home.html', username=session['username'])
+
+@app.route('/À propos')
+@login_requierd
+def about():
+    return render_template('about.html')
 
 
 @app.route('/logout')

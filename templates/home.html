@@ -7,6 +7,7 @@
     <h1>Bienvenue, {{ username }} !</h1>
     <p>Félicitations ! Vous avez réussi à vous authentifier sur votre mini site Flask.</p>
     <p>Ceci est la page d'accueil qui n'est accessible qu'après authentification.</p>
+    <a href="{{ url_for('about') }}">À propos</a>
     <a href="{{ url_for('logout') }}">Se déconnecter</a>
   </body>
 </html>
