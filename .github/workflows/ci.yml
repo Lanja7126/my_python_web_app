@@ -31,7 +31,7 @@ jobs:
           echo "Début du déploiement local..."
 
           DOCKERHUB_USERNAME="${{ secrets.DOCKERHUB_USERNAME }}"
-          IMAGE_NAME="mon-site-flask"
+          IMAGE_NAME="my_python_web_app"
           TAG="latest"
           FULL_IMAGE="$DOCKERHUB_USERNAME/$IMAGE_NAME:$TAG"
           CONTAINER_NAME="flask-app"
