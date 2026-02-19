@@ -41,8 +41,7 @@ jobs:
           log_error() { echo "[ERROR] $1"; }
           log_success() { echo "[SUCCESS] $1"; }
 
-          sudo mkdir -p /opt/flask-app
-          sudo chown -R $USER:$USER /opt/flask-app
+          mkdir -p $HOME/flask-app
 
           log_info "Pull de la dernière image..."
           docker pull $FULL_IMAGE
