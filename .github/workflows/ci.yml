@@ -76,6 +76,6 @@ jobs:
           log_info "Nettoyage des images inutilisées..."
           docker image prune -af --filter "until=24h"
 
-          echo "Déployé le $(date) - Commit: ${{ github.sha }}" >> /opt/flask-app/deployment.log
+          echo "Déployé le $(date) - Commit: ${{ github.sha }}" >> $HOME/flask-app/deployment.log
 
           log_success "Déploiement terminé avec succès"
