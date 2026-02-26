@@ -1,13 +1,99 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Accueil - Mini Site Étudiant</title>
-  </head>
-  <body>
-    <h1>Bienvenue, {{ username }} !</h1>
-    <p>Félicitations ! Vous avez réussi à vous authentifier sur votre mini site Flask.</p>
-    <p>Ceci est la page d'accueil qui n'est accessible qu'après authentification.</p>
-    <a href="{{ url_for('about') }}">À propos</a>
-    <a href="{{ url_for('logout') }}">Se déconnecter</a>
-  </body>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Mini Site Étudiant</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200">
+
+  <!-- NAVBAR -->
+  <nav class="bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-indigo-600">
+        🎓 Mini Site Étudiant
+      </h1>
+
+      <div class="space-x-4">
+        <a href="{{ url_for('about') }}"
+           class="text-gray-600 hover:text-indigo-600 font-medium transition">
+           À propos
+        </a>
+
+        <a href="{{ url_for('logout') }}"
+           class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition shadow">
+           Se déconnecter
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTENU -->
+  <main class="flex justify-center items-center py-16 px-4">
+
+    <div class="bg-white shadow-xl rounded-2xl p-10 w-full max-w-3xl">
+
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">
+        Bienvenue, <span class="text-indigo-600">{{ username }}</span> 👋
+      </h2>
+
+      <p class="text-gray-600 mb-6">
+        Félicitations ! Vous avez réussi à vous authentifier sur votre mini site Flask.
+      </p>
+
+      <p class="text-gray-600 mb-8">
+        Cette page d'accueil est protégée et accessible uniquement après connexion.
+      </p>
+
+      <!-- Cards Section -->
+      <div class="grid md:grid-cols-2 gap-6">
+
+        <!-- Card 1 -->
+        <div class="p-6 rounded-xl bg-indigo-50 hover:shadow-lg transition">
+          <h3 class="font-semibold text-lg text-indigo-700 mb-2">
+            📘 Mon Profil
+          </h3>
+          <p class="text-gray-600 text-sm">
+            Consultez et modifiez vos informations personnelles.
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="p-6 rounded-xl bg-blue-50 hover:shadow-lg transition">
+          <h3 class="font-semibold text-lg text-blue-700 mb-2">
+            📚 Mes Cours
+          </h3>
+          <p class="text-gray-600 text-sm">
+            Accédez aux ressources et contenus pédagogiques.
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="p-6 rounded-xl bg-green-50 hover:shadow-lg transition">
+          <h3 class="font-semibold text-lg text-green-700 mb-2">
+            ✅ Activités
+          </h3>
+          <p class="text-gray-600 text-sm">
+            Suivez vos progrès et vos tâches réalisées.
+          </p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="p-6 rounded-xl bg-purple-50 hover:shadow-lg transition">
+          <h3 class="font-semibold text-lg text-purple-700 mb-2">
+            ⚙️ Paramètres
+          </h3>
+          <p class="text-gray-600 text-sm">
+            Personnalisez votre expérience utilisateur.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</body>
 </html>
